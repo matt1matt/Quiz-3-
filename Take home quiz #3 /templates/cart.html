@@ -1,0 +1,25 @@
+{% include "header.html" %}
+<h1>Cart</h1>
+
+{% if session["cart"] is defined %}
+<form action='/updatecart' method='POST'>
+    <table>
+        <tr><th>Name</th><th>Quantity</th><th>Subtotal</th></tr>
+        {% for item in session["cart"].values() %}
+        <tr>
+            <td>{{ item["name"] }}</td>
+            <td><input type="text" name="qty_cart" value="{{ item["qty"] }}"><input type="hidden" name="code" value='{{ item["code"] }}'><input type="hidden" name="price" value='{{ item["price"] }}'><input type="hidden" name="name" value='{{ item["name"] }}'></td>
+
+            <td>{{ item["subtotal"] }}</td>
+            <!-- <td><form action='/remove' method='POST'><input type="hidden" name="code" value='{{ item["code"] }}'><input type="hidden" name="price" value='{{ item["price"] }}'><input type="hidden" name="name" value='{{ item["name"] }}'><input type="hidden" name="reset" value='0'><input type="submit" value="Clear"></form></td></tr> -->
+        {% endfor %}
+        <tr><td colspan=2><b>Total</b></td><td><b>{{ session["cart"].values()|sum(attribute="subtotal") }}</b></td></tr>
+    </table>
+    <input type="submit" value="Update Cart">
+    <a href=/clearcart>Clear Cart</a>
+
+    {% else %}
+    <div>Your cart is empty</div>
+    {% endif %}
+
+    {% include "footer.html" %}

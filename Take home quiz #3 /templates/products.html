@@ -1,0 +1,29 @@
+<html>
+<header>
+</header>
+<body>
+  {% include "header.html" %}
+  <h1>Products</h1>
+
+  <table>
+    <tr><th>Code</th><th>Name</th><th>Price</th></tr>
+    
+    {% for product in product_list %}
+    <form action="/addtocart" method="POST">
+	    <tr>
+	    	<td>
+	    		<a href="productdetails?code={{product["code"]}}">{{product["code"]}}
+	    		</a>
+	    	</td>
+	    	<td>{{product["name"]}}</td>
+	    	<td>{{product["price"]}}</td>
+	    	<!-- <td colspan="2"><input type="submit" name="Add to Cart" value="+"></input></td>
+	    	<td colspan="2"><input type="submit" name="Remove" value="-"></input></td> -->
+	    </tr>
+	</form>
+    {% endfor %}
+
+  </table>
+  {% include "footer.html" %}
+</body>
+</html>
